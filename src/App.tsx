@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import Chat from './Chat'
 import Settings from './Settings'
 import type { ServerStatus } from './Settings'
@@ -55,7 +56,9 @@ export default function App() {
     setChats(remaining)
     if (id === activeId) setActiveId(remaining[0].id)
   }
-  return <div className="app" dir="rtl">
+  return <>
+    <SpeedInsights />
+    <div className="app" dir="rtl">
     <aside className="sidebar">
       <div className="brand"><h1><span className="brand-icon">✦</span> Konic</h1><p className="subtitle">مساعدك الذكي لكل شيء</p></div>
       <button className="new-chat-button" onClick={newChat}>＋ محادثة جديدة</button>
@@ -72,5 +75,6 @@ export default function App() {
       <Chat key={active.id} messages={active.messages} onMessagesChange={updateMessages} /></section>
     </main>
     <Settings open={settingsOpen} status={server} onClose={() => setSettingsOpen(false)} onSaved={setServer} />
-  </div>
+    </div>
+  </>
 }
